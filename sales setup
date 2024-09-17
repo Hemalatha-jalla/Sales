@@ -1,0 +1,172 @@
+First create database:
+-->create database Sales;
+Then:
+-->use Sales;
+To check whether the database tables are created or not use:
+-->show tables;
+
+NOTE:only after creation of tables the database should shows up 
+
+SALES 
+1.create table Customer: 
+create table Customer( 
+C_ID int primary key, 
+name varchar(60), 
+email varchar(150), 
+phone_no varchar(60), 
+address varchar(250), 
+city varchar(90), 
+country varchar(90), 
+pincode varchar(50), 
+products_buyed varchar(90) 
+); 
+
+2. create table Supplier: 
+create table Supplier( 
+S_ID int primary key, 
+name varchar(90), 
+phone_no varchar(60), 
+email varchar(160), 
+address varchar(255), 
+city varchar(120), 
+country varchar(80), 
+pin_code varchar(90), 
+product_supplied varchar(160) 
+);
+
+3. create table payment: 
+create table payment( 
+pay_ID int primary key, 
+C_ID int, 
+amount decimal(10,3), 
+status varchar(90) not null,  
+pay_method varchar(50) not null, 
+pay_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP, 
+FOREIGN KEY (C_ID) REFERENCES Customer(C_ID) 
+); 
+
+4. create table Orders: 
+create table Orders( 
+Order_ID int primary key, 
+C_ID int,  
+p_id int, 
+price decimal(10,2), 
+status varchar(60) not null, 
+delivery_address varchar(255), 
+pay_method varchar(50) not null, 
+quantity int not null, 
+feedback varchar(400), 
+Order_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP, 
+FOREIGN KEY (C_ID) REFERENCES CUSTOMER(C_ID), 
+FOREIGN KEY (p_ID) REFERENCES PRODUCTS(p_ID) 
+);  
+
+5. create table Shipping: 
+create table Shipping( 
+shipp_ID int primary key, 
+ship_status varchar(120) not null, 
+ship_type varchar(90) not null, 
+ship_cost decimal(10,2), 
+tracking_no varchar(90), 
+delivery_date date not null, 
+shipp_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP 
+); 
+
+6. create table products: 
+create table products( 
+p_id int primary key, 
+name varchar(90), 
+type varchar(60), 
+price decimal(10,2), 
+quantity int not null, 
+availability varchar(100) not null, 
+S_ID int, 
+FOREIGN KEY (S_ID) REFERENCES SUPPLIER(S_ID) 
+); 
+
+1.INSERT INTO Customer: 
+INSERT INTO Customer (C_ID, name, email, phone_no, address, city, country, pincode, 
+products_buyed) 
+VALUES 
+(1, 'John Doe', 'john.doe@example.com', '123-456-7890', '123 Elm Street', 'Springfield', 'USA', 
+'62701', 'Laptop, Phone'), 
+(2, 'Jane Smith', 'jane.smith@example.com', '234-567-8901', '456 Oak Avenue', 'Rivertown', 
+'USA', '62702', 'Tablet, Headphones'), 
+(3, 'Alice Johnson', 'alice.johnson@example.com', '345-678-9012', '789 Pine Road', 'Hillcrest', 
+'USA', '62703', 'Smartwatch, Charger'), 
+(4, 'Bob Brown', 'bob.brown@example.com', '456-789-0123', '101 Maple Drive', 'Lakeside', 'USA', 
+'62704', 'Monitor, Mouse'), 
+(5, 'Charlie Davis', 'charlie.davis@example.com', '567-890-1234', '202 Birch Lane', 
+'Mountainview', 'USA', '62705', 'Keyboard, Speaker'), 
+(6, 'Diana Wilson', 'diana.wilson@example.com', '678-901-2345', '303 Cedar Street', 'Woodland', 
+'USA', '62706', 'Webcam, Microphone'), 
+(7, 'Eve Martinez', 'eve.martinez@example.com', '789-012-3456', '404 Willow Way', 'Greenfield', 
+'USA', '62707', 'Printer, Scanner'), 
+(8, 'Frank Harris', 'frank.harris@example.com', '890-123-4567', '505 Fir Boulevard', 
+'Meadowbrook', 'USA', '62708', 'Router, Extender'); 
+
+2.INSERT INTO Supplier: 
+INSERT INTO Supplier (S_ID, name, phone_no, email, address, city, country, pin_code, 
+product_supplied) 
+VALUES 
+(1, 'Tech Supply Co.', '555-1000', 'contact@techsupply.com', '123 Tech Drive', 'Innovation City', 
+'USA', '90001', 'Electronics'), 
+(2, 'Office Essentials', '555-2000', 'sales@officeessentials.com', '456 Office Park', 'Business 
+District', 'USA', '90002', 'Office Supplies'), 
+(3, 'Home Appliances Inc.', '555-3000', 'info@homeappliances.com', '789 Home Avenue', 
+'Comfort Town', 'USA', '90003', 'Appliances'), 
+(4, 'Gadget World', '555-4000', 'support@gadgetworld.com', '101 Gadget Road', 'Tech Valley', 
+'USA', '90004', 'Gadgets'), 
+(5, 'Fitness Gear', '555-5000', 'service@fitnessgear.com', '202 Fitness Lane', 'Active City', 'USA', 
+'90005', 'Fitness Equipment'), 
+(6, 'Automotive Parts', '555-6000', 'parts@auto.com', '303 Auto Street', 'Car Town', 'USA', 
+'90006', 'Automotive Parts'), 
+(7, 'Outdoor Supplies', '555-7000', 'info@outdoorsupplies.com', '404 Outdoor Drive', 'Adventure 
+Land', 'USA', '90007', 'Outdoor Gear'), 
+(8, 'Books & More', '555-8000', 'books@booksandmore.com', '505 Book Lane', 'Literature City', 
+'USA', '90008', 'Books'); 
+
+4.INSERT INTO payment: 
+INSERT INTO payment (pay_ID, C_ID, amount, status, pay_method) 
+VALUES 
+(1, 1, 99.99, 'Completed', 'Credit Card'), 
+(2, 2, 45.50, 'Pending', 'PayPal'), 
+(3, 3, 78.25, 'Completed', 'Debit Card'), 
+(4, 4, 25.00, 'Failed', 'Bank Transfer'), 
+(5, 5, 60.00, 'Completed', 'Credit Card'), 
+(6, 6, 85.20, 'Completed', 'PayPal'), 
+(7, 7, 120.00, 'Pending', 'Debit Card'), 
+(8, 8, 35.75, 'Completed', 'Credit Card'); 
+
+5.INSERT INTO Orders: 
+INSERT INTO Orders (Order_ID, C_ID, p_id, price, status, delivery_address, pay_method, quantity, 
+feedback) 
+VALUES 
+(1, 1, 101, 199.99, 'Completed', '123 Elm Street, Springfield', 'Credit Card', 1, 'Excellent product 
+and service.'), 
+(2, 2, 102, 75.50, 'Shipped', '456 Oak Avenue, Rivertown', 'PayPal', 2, 'Received the order in good 
+condition.'), 
+(3, 3, 103, 150.00, 'Pending', '789 Pine Road, Hillcrest', 'Debit Card', 3, 'Looking forward to the 
+delivery.'), 
+(4, 4, 104, 55.00, 'Completed', '101 Maple Drive, Lakeside', 'Bank Transfer', 1, 'Satisfied with the 
+purchase.'), 
+(5, 5, 105, 89.99, 'Completed', '202 Birch Lane, Mountainview', 'Credit Card', 1, 'Great value for 
+money.'), 
+(6, 6, 106, 120.00, 'Shipped', '303 Cedar Street, Woodland', 'PayPal', 2, 'Well packaged and timely 
+delivery.'), 
+(7, 7, 107, 300.00, 'Pending', '404 Willow Way, Greenfield', 'Debit Card', 4, 'Awaiting shipment 
+details.'), 
+(8, 8, 108, 40.00, 'Completed', '505 Fir Boulevard, Meadowbrook', 'Credit Card', 1, 'Everything 
+was perfect.'); 
+
+6.INSERT INTO Shipping: 
+INSERT INTO Shipping (shipp_ID, ship_status, ship_type, ship_cost, tracking_no, delivery_date) 
+VALUES 
+(1, 'In Transit', 'Express', 49.99, 'TRK2001', '2024-09-15'), 
+(2, 'Delivered', 'Standard', 25.50, 'TRK2002', '2024-09-14'), 
+(3, 'Pending', 'Overnight', 78.25, 'TRK2003', '2024-09-16'), 
+(4, 'Shipped', 'Economy', 12.75, 'TRK2004', '2024-09-17'), 
+(5, 'In Transit', 'Express', 59.99, 'TRK2005', '2024-09-18'), 
+(6, 'Out for Delivery', 'Standard', 30.00, 'TRK2006', '2024-09-19'), 
+(7, 'Delivered', 'Express', 45.30, 'TRK2007', '2024-09-13'), 
+(8, 'Pending', 'Economy', 14.00, 'TRK2008', '2024-09-20'); 
